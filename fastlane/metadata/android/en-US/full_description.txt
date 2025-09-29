@@ -1,0 +1,1 @@
+<p>Use <i>Layout Editor</i> to easily build Android app layouts by dragging UI elements into a visual layout editor.</p><p><br><b>Features:</b></p><ul><li>Design layout with Drag & Drop</li><li>Edit view and layout properties</li><li>See and Copy the XML code of layout</li><li>Save and use drawables</li><li>See the layout structure</li><li>Save layouts as projects</li></ul>
