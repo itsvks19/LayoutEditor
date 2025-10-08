@@ -3,6 +3,7 @@
 <div align="center">
 
 [![Latest release](https://img.shields.io/github/v/release/itsvks19/LayoutEditor?include_prereleases&label=latest%20release&style=for-the-badge)](https://github.com/itsvks19/LayoutEditor/releases/latest)
+[![Get it at IzzyOnDroid](https://img.shields.io/endpoint?url=https://apt.izzysoft.de/fdroid/api/v1/shield/com.itsvks.layouteditor&style=for-the-badge)](https://apt.izzysoft.de/packages/com.itsvks.layouteditor)
 [![Discord](https://img.shields.io/discord/1082286665822900224?style=for-the-badge)](https://discord.gg/EdeVQSghMA)
 ![Downloads](https://img.shields.io/github/downloads/itsvks19/LayoutEditor/total?style=for-the-badge)
 ![GitHub repo size](https://img.shields.io/github/repo-size/itsvks19/LayoutEditor?style=for-the-badge)
