@@ -37,6 +37,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @authors: @raredeveloperofc and @itsvks19;
@@ -50,7 +51,7 @@ public class ColorFragment extends Fragment {
 
     @Override
     public android.view.View onCreateView(
-        @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentResourcesBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
@@ -59,19 +60,24 @@ public class ColorFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ProjectFile project = ProjectManager.getInstance().getOpenedProject();
+
+        if (project == null) {
+            throw new IllegalStateException("No opened project");
+        }
+
         try {
             loadColorsFromXML(project.getColorsPath());
         } catch (FileNotFoundException e) {
             SBUtils.make(view, "An error occurred: " + e.getMessage())
-                .setFadeAnimation()
-                .setType(SBUtils.Type.INFO)
-                .show();
+                    .setFadeAnimation()
+                    .setType(SBUtils.Type.INFO)
+                    .show();
         }
         RecyclerView mRecyclerView = binding.recyclerView;
         adapter = new ColorResourceAdapter(project, colorList);
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setLayoutManager(
-            new LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false));
+                new LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false));
     }
 
     /**
@@ -91,62 +97,68 @@ public class ColorFragment extends Fragment {
         TextInputLayout ilName = bind.textInputLayoutName;
         TextInputLayout ilValue = bind.textInputLayoutValue;
         TextInputEditText etName = bind.textinputName;
-        TextInputEditText etValue = bind.textinputValue;
-
-        etValue.setFocusable(false);
-        etValue.setOnClickListener(
-            (v) -> {
-                @SuppressLint("SetTextI18n")
-                var dialog = new ColorPickerDialog.Builder(requireContext())
-                    .setTitle("Choose Color")
-                    .setPositiveButton(getString(R.string.confirm),
-                        (ColorEnvelopeListener) (envelope, fromUser) -> {
-                            etValue.setText("#" + envelope.getHexCode());
-                        })
-                    .setNegativeButton(getString(R.string.cancel),
-                        (d, i) -> d.dismiss())
-                    .attachAlphaSlideBar(true)
-                    .attachBrightnessSlideBar(true)
-                    .setBottomSpace(12);
-
-                var colorView = dialog.getColorPickerView();
-                colorView.setFlagView(new ColorPickerDialogFlag(requireContext()));
-                dialog.show();
-            });
+        TextInputEditText etValue = getTextInputEditText(bind);
         builder.setView(bind.getRoot());
 
         builder.setPositiveButton(
-            R.string.add,
-            (dlg, i) -> {
-                // Create new ColorItem(ValuesItem) instance
-                var colorItem = new ValuesItem(etName.getText().toString(), etValue.getText().toString());
-                // Add colorItem in stringList
-                colorList.add(colorItem);
-                adapter.notifyItemInserted(colorList.indexOf(colorItem));
-                // Generate code from all colors in list
-                adapter.generateColorsXml();
-            });
+                R.string.add,
+                (dlg, i) -> {
+                    // Create new ColorItem(ValuesItem) instance
+                    var colorItem = new ValuesItem(Objects.requireNonNull(etName.getText()).toString(), Objects.requireNonNull(etValue.getText()).toString());
+                    // Add colorItem in stringList
+                    colorList.add(colorItem);
+                    adapter.notifyItemInserted(colorList.indexOf(colorItem));
+                    // Generate code from all colors in list
+                    adapter.generateColorsXml();
+                });
         builder.setNegativeButton(R.string.cancel, null);
 
         AlertDialog dialog = builder.create();
         dialog.show();
 
         etName.addTextChangedListener(
-            new TextWatcher() {
+                new TextWatcher() {
 
-                @Override
-                public void beforeTextChanged(CharSequence p1, int p2, int p3, int p4) {
-                }
+                    @Override
+                    public void beforeTextChanged(CharSequence p1, int p2, int p3, int p4) {
+                    }
 
-                @Override
-                public void onTextChanged(CharSequence p1, int p2, int p3, int p4) {
-                }
+                    @Override
+                    public void onTextChanged(CharSequence p1, int p2, int p3, int p4) {
+                    }
 
-                @Override
-                public void afterTextChanged(Editable p1) {
-                    NameErrorChecker.checkForValues(etName.getText().toString(), ilName, dialog, colorList);
-                }
-            });
-        NameErrorChecker.checkForValues(etName.getText().toString(), ilName, dialog, colorList);
+                    @Override
+                    public void afterTextChanged(Editable p1) {
+                        NameErrorChecker.checkForValues(Objects.requireNonNull(etName.getText()).toString(), ilName, dialog, colorList);
+                    }
+                });
+        NameErrorChecker.checkForValues(Objects.requireNonNull(etName.getText()).toString(), ilName, dialog, colorList);
+    }
+
+    @NonNull
+    private TextInputEditText getTextInputEditText(LayoutValuesItemDialogBinding bind) {
+        TextInputEditText etValue = bind.textinputValue;
+
+        etValue.setFocusable(false);
+        etValue.setOnClickListener(
+                (v) -> {
+                    @SuppressLint("SetTextI18n")
+                    var dialog = new ColorPickerDialog.Builder(requireContext())
+                            .setTitle("Choose Color")
+                            .setPositiveButton(getString(R.string.confirm),
+                                    (ColorEnvelopeListener) (envelope, fromUser) -> {
+                                        etValue.setText("#" + envelope.getHexCode());
+                                    })
+                            .setNegativeButton(getString(R.string.cancel),
+                                    (d, i) -> d.dismiss())
+                            .attachAlphaSlideBar(true)
+                            .attachBrightnessSlideBar(true)
+                            .setBottomSpace(12);
+
+                    var colorView = dialog.getColorPickerView();
+                    colorView.setFlagView(new ColorPickerDialogFlag(requireContext()));
+                    dialog.show();
+                });
+        return etValue;
     }
 }

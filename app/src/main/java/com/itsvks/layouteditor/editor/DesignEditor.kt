@@ -59,6 +59,7 @@ import com.itsvks.layouteditor.utils.InvokeUtil
 import com.itsvks.layouteditor.utils.Utils
 import com.itsvks.layouteditor.views.StructureView
 import kotlin.math.abs
+import androidx.core.view.isEmpty
 
 class DesignEditor : LinearLayout {
     var viewType: ViewType? = null
@@ -270,8 +271,8 @@ class DesignEditor : LinearLayout {
                             }
                         }
                         if (draggedView == null) {
-                            @Suppress("UNCHECKED_CAST") val data: HashMap<String, Any> =
-                                event.localState as HashMap<String, Any>
+                            @Suppress("UNCHECKED_CAST")
+                            val data = event.localState as HashMap<String, Any>
                             val newView =
                                 InvokeUtil.createView(
                                     data[Constants.KEY_CLASS_NAME].toString(), context
@@ -400,7 +401,7 @@ class DesignEditor : LinearLayout {
     }
 
     private fun updateStructure() {
-        if (childCount == 0) structureView!!.clear()
+        if (this.isEmpty()) structureView!!.clear()
         else structureView!!.setView(getChildAt(0))
     }
 

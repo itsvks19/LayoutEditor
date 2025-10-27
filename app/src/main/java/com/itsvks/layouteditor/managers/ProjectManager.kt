@@ -74,7 +74,6 @@ class ProjectManager private constructor() {
     }
 
     companion object {
-
         @JvmStatic
         @get:Synchronized
         val instance: ProjectManager by lazy { ProjectManager() }
