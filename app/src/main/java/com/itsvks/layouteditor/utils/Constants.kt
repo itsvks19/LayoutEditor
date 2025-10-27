@@ -1,5 +1,6 @@
 package com.itsvks.layouteditor.utils
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Build
@@ -7,6 +8,7 @@ import android.text.InputType
 import android.view.Gravity
 import android.view.View
 
+@SuppressLint("UseKtx")
 object Constants {
     const val CURRENT_LAYOUT: String = "currentLayout"
 

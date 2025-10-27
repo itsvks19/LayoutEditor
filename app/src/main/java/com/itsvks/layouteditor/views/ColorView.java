@@ -69,7 +69,7 @@ public class ColorView extends View {
      * @param canvas the Canvas object on which the view will draw.
      */
     @Override
-    protected void onDraw(Canvas canvas) {
+    protected void onDraw(@NonNull Canvas canvas) {
         super.onDraw(canvas);
         transparent.draw(canvas);
         canvas.drawRect(0, 0, getWidth(), getHeight(), colorPaint);

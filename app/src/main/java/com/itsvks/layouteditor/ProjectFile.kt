@@ -8,6 +8,7 @@ import com.itsvks.layouteditor.utils.Constants
 import com.itsvks.layouteditor.utils.FileUtil
 import org.jetbrains.annotations.Contract
 import java.io.File
+import androidx.core.content.edit
 
 class ProjectFile : Parcelable {
     var path: String
@@ -96,7 +97,7 @@ class ProjectFile : Parcelable {
             return LayoutFile(currentLayoutPath)
         }
         set(value) {
-            PreferencesManager.prefs.edit().putString(Constants.CURRENT_LAYOUT, value.path).apply()
+            PreferencesManager.prefs.edit { putString(Constants.CURRENT_LAYOUT, value.path) }
         }
 
     fun createDefaultLayout() {

@@ -30,10 +30,10 @@ object ArgumentUtil {
     @JvmStatic
     fun parseType(value: String, variants: Array<String>): String {
         for (variant in variants) {
-            if (patterns.containsKey(variant)) if (Pattern.matches(
-                    patterns[variant], value
-                )
-            ) return variant
+            @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+            if (patterns.containsKey(variant) && Pattern.matches(patterns[variant], value)) {
+                return variant
+            }
         }
         return "text"
     }
