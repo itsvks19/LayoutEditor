@@ -24,7 +24,7 @@
     <string name="xml_preview">XML 预览</string>
     <string name="msg_no_projects">还没有任何项目</string>
     <string name="msg_create_new">点击 + 图标创建一个新项目</string>
-    <string name="share_description">使用布局编辑器，通过将 UI 元素拖动到可视布局编辑器中来轻松构建 Android 应用布局。\n\n### 功能\n- 通过拖放设计布局\n- 编辑视图和布局属性\n- 查看和复制布局的 XML 代码\n- 更多：%1$s#features\n\n从此处下载：%1$s/releases/latest\n\n### 译者的话\n由于部分内容为“硬编码”，为了方便中国大陆的朋友，所以将硬编码的字符也翻译了，您可以前往我的存储库中下载：https://github.com/guobao2333/LayoutEditor</string>
+    <string name="share_description">使用布局编辑器，通过将 UI 元素拖动到可视布局编辑器中来轻松构建 Android 应用布局。\n\n### 功能\n- 通过拖放设计布局\n- 编辑视图和布局属性\n- 查看和复制布局的 XML 代码\n- 更多：%1$s#features\n\n从此处下载：%1$s/releases/latest</string>
     <string name="permission_granted">已授予权限&#8230;</string>
     <string name="permission_denied">没有权限&#8230;</string>
     <string name="preview_layout">预览布局</string>
